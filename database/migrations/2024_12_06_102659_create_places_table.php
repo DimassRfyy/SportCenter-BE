@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('thumbnail');
             $table->string('rating');
             $table->string('address');
+            $table->unsignedBigInteger('price');
+            $table->string('cs_name');
+            $table->string('cs_avatar');
+            $table->string('cs_phone');
             $table->dateTime('opening_hours');
             $table->dateTime('closing_hours');
             $table->text('description');
