@@ -9,6 +9,11 @@ class City extends Model
 {
     protected $fillable = ['name', 'slug', 'icon', 'thumbnail'];
 
+    public function places()
+    {
+        return $this->hasMany(Place::class);
+    }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;

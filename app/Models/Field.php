@@ -15,4 +15,9 @@ class Field extends Model
         'floor_type',
         'place_id',
     ];
+
+    public function place()
+    {
+        return $this->belongsTo(Place::class);
+    }
 }
