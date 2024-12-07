@@ -39,6 +39,11 @@ class Place extends Model
         return $this->hasMany(Field::class);
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(BookingTransaction::class);
+    }
+
     public function photos() 
     {
         return $this->hasMany(PlacePhoto::class);
