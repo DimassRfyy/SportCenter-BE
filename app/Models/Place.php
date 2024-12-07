@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Place extends Model
 {
@@ -53,5 +54,45 @@ class Place extends Model
     {
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($place) {
+            // Delete related fields and their thumbnails
+            foreach ($place->fields as $field) {
+                if ($field->thumbnail) {
+                    Storage::delete($field->thumbnail);
+                }
+                $field->delete();
+            }
+
+            // Delete related photos
+            foreach ($place->photos as $photo) {
+                if ($photo->photo) {
+                    Storage::delete($photo->photo);
+                }
+                $photo->delete();
+            }
+
+            // Delete place thumbnails and cs_avatar
+            if ($place->thumbnail) {
+                Storage::delete($place->thumbnail);
+            }
+            if ($place->cs_avatar) {
+                Storage::delete($place->cs_avatar);
+            }
+        });
+
+        static::updating(function ($place) {
+            if ($place->isDirty('thumbnail')) {
+                Storage::delete($place->getOriginal('thumbnail'));
+            }
+            if ($place->isDirty('cs_avatar')) {
+                Storage::delete($place->getOriginal('cs_avatar'));
+            }
+        });
     }
 }

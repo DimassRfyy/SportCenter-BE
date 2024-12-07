@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Field extends Model
 {
@@ -24,5 +25,22 @@ class Field extends Model
     public function transactions()
     {
         return $this->hasMany(BookingTransaction::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($field) {
+            if ($field->thumbnail) {
+                Storage::delete($field->thumbnail);
+            }
+        });
+
+        static::updating(function ($field) {
+            if ($field->isDirty('thumbnail')) {
+                Storage::delete($field->getOriginal('thumbnail'));
+            }
+        });
     }
 }
