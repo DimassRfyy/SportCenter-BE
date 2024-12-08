@@ -43,4 +43,9 @@ class Category extends Model
             }
         });
     }
+
+    public function getThumbnailUrlAttribute()
+    {
+        return Storage::disk('public')->url($this->thumbnail);
+    }
 }

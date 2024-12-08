@@ -56,6 +56,11 @@ class Place extends Model
         $this->attributes['slug'] = Str::slug($value);
     }
 
+    public function getThumbnailUrlAttribute()
+    {
+        return Storage::disk('public')->url($this->thumbnail);
+    }
+
     protected static function boot()
     {
         parent::boot();
