@@ -43,9 +43,4 @@ class City extends Model
             }
         });
     }
-
-    public function getIconUrlAttribute()
-    {
-        return Storage::disk('public')->url($this->icon);
-    }
 }

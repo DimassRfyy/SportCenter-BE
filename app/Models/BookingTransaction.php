@@ -31,5 +31,12 @@ class BookingTransaction extends Model
         return $this->belongsTo(Field::class);
     }
 
-    
+    public static function generateUniqueTrxId(){
+        $prefix = 'SPORT';
+        do {
+            $randomString = $prefix . mt_rand(10000, 99999);
+        } while (self::where('trx_id', $randomString)->exists());
+
+        return $randomString;
+    }
 }
