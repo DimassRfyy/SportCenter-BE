@@ -15,9 +15,9 @@ class CategoryController extends Controller
 
         if ($request->has('limit')) {
             $categories->limit($request->input('limit'));
-
-            return CategoryApiResource::collection($categories->get());
         }
+
+        return CategoryApiResource::collection($categories->get());
     }
 
     public function show(Category $category) {

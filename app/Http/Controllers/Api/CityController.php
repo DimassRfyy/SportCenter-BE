@@ -14,9 +14,9 @@ class CityController extends Controller
 
         if ($request->has('limit')) {
             $cities->limit($request->input('limit'));
-
-            return CityApiResource::collection($cities->get());
         }
+
+        return CityApiResource::collection($cities->get());
     }
 
     public function show(City $city) {
