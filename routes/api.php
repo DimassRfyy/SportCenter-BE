@@ -20,5 +20,5 @@ Route::apiResource('/cities', CityController::class);
 Route::get('/place/{place:slug}', [PlaceController::class, 'show']);
 Route::apiResource('/places', PlaceController::class);
 
-Route::post('/booking-transactions', [BookingTransactionController::class, 'store']);
-Route::post('/check-bookings', [BookingTransactionController::class, 'check-booking']);
+Route::post('/booking-transaction', [BookingTransactionController::class, 'store']);
+Route::post('/check-booking', [BookingTransactionController::class, 'check_booking']);
