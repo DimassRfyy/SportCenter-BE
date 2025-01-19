@@ -40,6 +40,11 @@ class BookingTransactionController extends Controller
 
         $bookingDetails = BookingTransaction::where('trx_id', $validated['trx_id'])
             ->where('phone_number', $validated['phone_number'])
+            ->with([
+                'place',
+                'place.city',
+                'field',
+            ])
             ->first();
 
         if (!$bookingDetails) {

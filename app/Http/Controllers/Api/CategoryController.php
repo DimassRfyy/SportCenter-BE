@@ -21,7 +21,7 @@ class CategoryController extends Controller
     }
 
     public function show(Category $category) {
-        $category->load('places');
+        $category->load('places','places.city');
         $category->loadCount('places');
 
         return new CategoryApiResource($category);

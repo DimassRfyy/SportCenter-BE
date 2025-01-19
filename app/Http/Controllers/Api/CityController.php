@@ -20,7 +20,7 @@ class CityController extends Controller
     }
 
     public function show(City $city) {
-        $city->load('places');
+        $city->load('places','places.category');
         $city->loadCount('places');
 
         return new CityApiResource($city);
